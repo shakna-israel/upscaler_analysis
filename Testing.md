@@ -24,6 +24,8 @@ The dependencies for the test rig, are found in the file `requirements-test.txt`
 
 Our upscaling algorithm does not intend to generate a 1:1 copy of an image, but rather an image that is perceptually similar to the original. A loss of detail for an increase in quality is acceptable, however the question is, how much loss of detail occurs? Measuring this objectively is extremely difficult. This paper approximates a way to measure the loss.
 
+A copy of the generated JSON files for further analysis is hosted in git. [^githost]
+
 ---
 
 ## Overview of Testing
@@ -265,3 +267,5 @@ Finally we do some contrast correction, and then apply the denoising algorithm [
 [^sixteenmm]: SIXTEENmm. https://sixteenmm.org
 
 [^jpeg2000]: Pau, Gregoire (2006). Fast discrete biorthogonal CDF 9/7 wavelet forward and inverse transform (lifting implementation) https://web.archive.org/web/20120305164605/http://www.embl.de/~gpau/misc/dwt97.c
+
+[^githost]: Milne, James (2020). A Basic Analysis of cart_repair Upscaling Algorithm. https://git.sr.ht/~shakna/upscaler_analysis
