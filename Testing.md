@@ -24,7 +24,13 @@ Our upscaling algorithm does not intend to generate a 1:1 copy of an image, but 
 
 The supplied `test.py` script will attempt to extract the difference between the original and the upscaled version using an implementation [^imagehash] of Wavelet Hashing [^wavelethash].
 
-[//]: # (TODO: Why choose wavelet hashing)
+[//]: # (Why choose wavelet hashing?)
+
+The industry-standard for measuring quality, Structural Similiarity (SSIM) indexing was examined as a possible measure early in the process, and discarded after it failed to tell the difference between several pairs of vastly different images.
+
+Wavelet Hashing, or hashing through the use of Discrete Wavelet Transformation (DWT), is an industry wide way of recording image differences and is used within the JPEG2000 standard to help power the progressive features.
+
+Our selected implementation of Wavelet Hashing is the Haar DWT, at a sample size of 4. It should be able to show us clear differences between the various upscaling algorithms.
 
     def process_frame(image, scale):
         pil_im = Image.fromarray(image)
