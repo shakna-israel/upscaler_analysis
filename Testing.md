@@ -270,4 +270,4 @@ Finally we do some contrast correction, and then apply the denoising algorithm [
 
 [^jpeg2000]: Pau, Gregoire (2006). Fast discrete biorthogonal CDF 9/7 wavelet forward and inverse transform (lifting implementation) https://web.archive.org/web/20120305164605/http://www.embl.de/~gpau/misc/dwt97.c
 
-[^githost]: Milne, James (2020). A Basic Analysis of cart_repair Upscaling Algorithm. https://git.sr.ht/~shakna/upscaler_analysis
+[^githost]: Milne, James (2020). A Basic Analysis of `cart_repair` Upscaling Algorithm. https://git.sr.ht/~shakna/upscaler_analysis
