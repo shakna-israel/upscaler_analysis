@@ -166,7 +166,7 @@ However, the overall chance of quality loss is significantly less than any of th
 
 [//]: # (TODO: Framecount)
 
-On our test dataset, a version of the 1911 Epee Dual [^epeedual] was processed, at a scale of 300%. N frames were examined.
+On our test dataset, a version of the 1911 Epee Dual [^epeedual] was processed, at a scale of 300%. 314 frames were examined.
 
 The exact command run was:
 
@@ -182,16 +182,14 @@ A simple plot shows that, for the most part, all the tested algorithms are relat
 
 ### Hamming Distance Counts - 300% Scale
 
-[//]: # (TODO: Data counts)
-
 | Algorithm         | Distance: 0 | Distance: 2 | Distance: 4 |
 | :---------------- | ----------: | ----------: | ----------: |
-| Bicubic           |             |             |             |
-| Nearest Neighbour |             |             |             |
-| Bilinear          |             |             |             |
-| Area              |             |             |             |
-| Lanczos v4        |             |             |             |
-| Ours              |             |             |             |
+| Bicubic           | 91          | 219         | 4           |
+| Nearest Neighbour | 95          | 214         | 5           |
+| Bilinear          | 103         | 205         | 6           |
+| Area              | 95          | 214         | 5           |
+| Lanczos v4        | 96          | 214         | 4           |
+| Ours              | 127         | 182         | 5           |
 
 A Hamming distance of 0 means there is no difference found.
 
@@ -199,9 +197,7 @@ A Hamming distance of 2 means there is some difference found, but that the image
 
 A Hamming distance of 4 means that there has been significant quality loss.
 
-[//]: # (TODO: Did any of the algos fail?)
-
-A Hamming distance of greater than 5 is a general rule for images that are not considered to be the same, used by the industry. Any upscale algorithm scoring a 5 can be considered to be a failure.
+A Hamming distance of greater than 5 is a general rule for images that are not considered to be the same, used by the industry. Any upscale algorithm scoring a 5 can be considered to be a failure. Thankfully none of the tested algorithms failed at 300% scaling.
 
 ---
 
@@ -213,18 +209,16 @@ These predictions are only true when looking at 300% scaling.
 
 The table below shows the rough chance of experiencing quality loss when upscaling at 300%.
 
-[//]: # (TODO: Fill in our data)
-
 | Algorithm         | Expected Quality Loss | Expected Significant Quality Loss |
 | :---------------- | --------------------: | --------------------------------: |
-| Bicubic           |                       |                                   |
-| Nearest Neighbour |                       |                                   |
-| Bilinear          |                       |                                   |
-| Area              |                       |                                   |
-| Lanczos v4        |                       |                                   |
-| Ours              |                       |                                   |
+| Bicubic           | 71.01%                | 1.27%                             |
+| Nearest Neighbour | 69.74%                | 1.59%                             |
+| Bilinear          | 67.19%                | 1.91%                             |
+| Area              | 69.74%                | 1.59%                             |
+| Lanczos v4        | 69.42%                | 1.27%                             |
+| Ours              | 59.55%                | 1.59%                             |
 
-[//]: # (TODO: Analysis of how well our algorithm faired compared to the competition)
+Once again, we see a marked difference between how well our algorithm performs, and how well the industry standards perform. However, the chance of significant data loss appears now to be no different than the other algorithms.
 
 ---
 
