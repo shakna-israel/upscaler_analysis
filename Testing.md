@@ -4,6 +4,8 @@
 
 The `cart_repair` upscaling algorithm attempts to preserve the human perception of quality, whilst having some acceptable level of detail loss. As the algorithm is originally intended for video processing work, it was created with the idea that the human brain will fill in details that may come and go between individual frames so that the viewer is not particularly aware that the video they are watching is not a 1:1 preservation of the original.
 
+![An example of the upscaling algorithm at 200%](compare.png)
+
 In the subjective testing throughout development, it was found to work well on images up to 200% scaling, and depending on the subject media, have passable results at 300% scaling. It falls short above that scale.
 
 However, the subjective analysis of an image doesn't supply us with a source of truth. This document reflects an attempt to create an objective measure to compare the algorithm against existing industry standard algorithms, and to provide a source of truth that could be used for further improvements to the algorithm.
@@ -28,7 +30,7 @@ The supplied `test.py` script will attempt to extract the difference between the
 
 The industry-standard for measuring quality, Structural Similiarity (SSIM) indexing was examined as a possible measure early in the process, and discarded after it failed to tell the difference between several pairs of vastly different images.
 
-Wavelet Hashing, or hashing through the use of Discrete Wavelet Transformation (DWT), is an industry wide way of recording image differences and is used within the JPEG2000 standard to help power the progressive features.
+Wavelet Hashing, or hashing through the use of Discrete Wavelet Transformation (DWT), is an industry wide way of recording image differences and is used within the JPEG2000 standard [^jpeg2000] to help power the progressive features.
 
 Our selected implementation of Wavelet Hashing is the Haar DWT, at a sample size of 4. It should be able to show us clear differences between the various upscaling algorithms.
 
@@ -263,3 +265,5 @@ Finally we do some contrast correction, and then apply the denoising algorithm [
 [^denoise]: Buades, Antoni. Coll, Bartomeu. Morel, Jean-Michel (2011).  Non-Local Means Denoising. https://www.ipol.im/pub/art/2011/bcm_nlm/
 
 [^sixteenmm]: SIXTEENmm. https://sixteenmm.org
+
+[^jpeg2000]: Pau, Gregoire (2006). Fast discrete biorthogonal CDF 9/7 wavelet forward and inverse transform (lifting implementation) https://web.archive.org/web/20120305164605/http://www.embl.de/~gpau/misc/dwt97.c
