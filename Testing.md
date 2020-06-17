@@ -12,6 +12,8 @@ In the subjective testing throughout development, it was found to work well on i
 
 ![An example of the upscaling algorithm at 300% on a black and white image](compare_quantbw.png)
 
+![An example of our upscaling algorithm on the left, and bicubic upscaling on the right, at 200% on an animation still](cubic_compare.png)
+
 However, the subjective analysis of an image doesn't supply us with a source of truth. This document reflects an attempt to create an objective measure to compare the algorithm against existing industry standard algorithms, and to provide a source of truth that could be used for further improvements to the algorithm.
 
 Measuring the quality of an image is a difficult problem, and so we rely on a measure that may not be entirely appropriate all of the time, necessitating a large dataset to hide any outliers.
