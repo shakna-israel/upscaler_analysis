@@ -1,5 +1,17 @@
 % A Basic Analysis of `cart_repair` Upscaling Algorithm
 
+## Introduction
+
+The `cart_repair` upscaling algorithm attempts to preserve the human perception of quality, whilst having some acceptable level of detail loss. As the algorithm is originally intended for video processing work, it was created with the idea that the human brain will fill in details that may come and go between individual frames so that the viewer is not particularly aware that the video they are watching is not a 1:1 preservation of the original.
+
+In the subjective testing throughout development, it was found to work well on images up to 200% scaling, and depending on the subject media, have passable results at 300% scaling. It falls short above that scale.
+
+However, the subjective analysis of an image doesn't supply us with a source of truth. This document reflects an attempt to create an objective measure to compare the algorithm against existing industry standard algorithms, and to provide a source of truth that could be used for further improvements to the algorithm.
+
+Measuring the quality of an image is a difficult problem, and so we rely on a measure that may not be entirely appropriate all of the time, necessitating a large dataset to hide any outliers.
+
+The industry-standard for measuring quality, Structural Similiarity (SSIM) indexing was examined as a possible measure early in the process, and discarded after it failed to tell the difference between several pairs of vastly different images.
+
 ## Technical Information
 
 The dependencies for the test rig, are found in the file `requirements-test.txt`. (The usual dependencies must also be available).
@@ -8,9 +20,11 @@ Our upscaling algorithm does not intend to generate a 1:1 copy of an image, but 
 
 ---
 
-## Overview
+## Overview of Testing
 
 The supplied `test.py` script will attempt to extract the difference between the original and the upscaled version using an implementation [^imagehash] of Wavelet Hashing [^wavelethash].
+
+[//]: # (TODO: Why choose wavelet hashing)
 
     def process_frame(image, scale):
         pil_im = Image.fromarray(image)
@@ -23,9 +37,11 @@ The supplied `test.py` script will attempt to extract the difference between the
         diff = before_hash - after_hash
         return diff
 
-The closer to 0 the value returned, the better our algorithm is preserving the original image.
+The closer to 0 the value returned, the better our algorithm is preserving the original image. The return value is a Hamming distance value, where 5 and above is generally considered to be a significantly differing image in the industry.
 
 The script also compares the result to the bicubic equivalent. It is expected that for bicubic upscaling the difference will usually be 0. It isn't altering the image significantly, despite the dramatic quality loss that often results. Pixelisation is ignored by most perceptual hashing algorithms.
+
+Other comparisons also include: Nearest Neighbour, Bilinear, Area, and Lanczos v4.
 
 Bicubic was chosen as the most important comparison as it is frequently the default interpolation method for many resizing algorithms utilised throughout the industry, despite its somewhat poor performance.
 
@@ -42,8 +58,6 @@ Bicubic was chosen as the most important comparison as it is frequently the defa
         
         diff = before_hash - after_hash
         return diff
-
-Other comparisons also include: Nearest Neighbour, Bilinear, Area, and Lanczos v4.
 
 Our algorithm applies more extensive changes to the original image, and measuring that detail loss is possible through this process. When the upscaler receives a worse diff result than the bicubic equivalent, the dataset contains something that the upscaler fails to preserve accurately.
 
@@ -69,6 +83,12 @@ Example JSON:
      "lanczos4": [2, 0]}
 
 These outputs should be reproducible, if the same dataset (image or video file) is being tested.
+
+The results of our own testing should be included in the following files:
+
+* For 200% scaling: diffs_x2.png and diffs_x2.json
+
+* For 300% scaling: diffs_x3.png and diffs_x3.json
 
 ---
 
@@ -126,7 +146,7 @@ The table below shows the rough chance of experiencing quality loss when upscali
 
 Our algorithm seems to suffer here somewhat. It has a higher chance of significant quality loss than any of the other algorithms. Worse even than bilinear upscaling.
 
-However, the overall chance of quality loss is much less than any of the others.
+However, the overall chance of quality loss is significantly less than any of the others.
 
 ---
 
@@ -196,7 +216,7 @@ The table below shows the rough chance of experiencing quality loss when upscali
 
 ---
 
-## The Process
+## An Overview of the Process
 
 This is a high-level description of the process, which is slightly convoluted. You should not expect to be able to duplicate the results from this, however it may put you on the right track. The actual algorithm will be released to the public at some point, but for now it is only used in production by SIXTEENmm [^sixteenmm].
 
