@@ -14,11 +14,13 @@ However, the subjective analysis of an image doesn't supply us with a source of 
 
 ## Reading
 
-You can find the main body of text in the file `Testing.md`.
+You can find the main body of text in the file `Testing.md`. This is Pandoc-flavoured Markdown.
 
 We recommend generating a PDF with:
 
 	pandoc --toc Testing.md -o Testing.pdf
+
+A PDF copy may be found [here](https://sixteenmm.org/personal/CartRepairTesting.pdf).
 
 ---
 
