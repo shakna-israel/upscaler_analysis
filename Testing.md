@@ -102,15 +102,19 @@ These outputs should be reproducible, if the same dataset (image or video file) 
 
 The results of our own testing should be included in the following files:
 
-* For 200% scaling: diffs_x2.png and diffs_x2.json
+* For 200% scaling: `diffs_x2.png` and `diffs_x2.json`
 
-* For 300% scaling: diffs_x3.png and diffs_x3.json
+* For 300% scaling: `diffs_x3.png` and `diffs_x3.json`
 
 ---
 
 ## Results - 200% Scale
 
-On our test dataset, a version of the 1911 Epee Dual [^epeedual] was processed, at a scale of 200%. 601 frames were examined.
+On our test dataset, a version of the 1911 Epee Dual [^epeedual] was processed, at a scale of 200%.
+
+601 frames were examined.
+
+The size of each frame was originally 320x240, and was upscaled to 640x480.
 
 The exact command run was:
 
@@ -170,7 +174,11 @@ However, the overall chance of quality loss is significantly less than any of th
 
 [//]: # (TODO: Framecount)
 
-On our test dataset, a version of the 1911 Epee Dual [^epeedual] was processed, at a scale of 300%. 314 frames were examined.
+On our test dataset, a version of the 1911 Epee Dual [^epeedual] was processed, at a scale of 300%.
+
+314 frames were examined.
+
+The size of each frame was originally 320x240, and was upscaled to 960x720.
 
 The exact command run was:
 
