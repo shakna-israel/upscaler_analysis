@@ -278,7 +278,7 @@ The process to create these images was as follows:
 
     * Note that when upscaling from very small resolutions, you will find differing qualities amongst the algorithms than you find above. This is expected, and understood. However `cart_repair` should still be able to be visually compared.
 
-* For integer scales in the range of 2 to 4, upscale the image using the given algorithm. (As above, the algorithms are Bicubic, Nearest Neighbour, Bilinear, Area, Lanczos v4 and `cart_repair`).
+* For integer scales in the range of x2 to x5, upscale the image using the given algorithm. (As above, the algorithms are Bicubic, Nearest Neighbour, Bilinear, Area, Lanczos v4 and `cart_repair`).
 
 * Concatenate the images together.
 

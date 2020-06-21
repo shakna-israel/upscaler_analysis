@@ -42,7 +42,7 @@ def create_row_cart(image):
 	height = base.shape[0]
 	width = base.shape[1]
 
-	for scale in range(2, 5):
+	for scale in range(2, 6):
 		x = cart_repair.process_frame(base.copy(), scale)
 		r = append_horizontal([r, x])
 
@@ -63,7 +63,7 @@ def create_row(image, interp=cv2.INTER_CUBIC, text="Cubic"):
 	height = base.shape[0]
 	width = base.shape[1]
 
-	for scale in range(2, 5):
+	for scale in range(2, 6):
 		x = cv2.resize(base.copy(), (math.floor(width * scale), math.floor(height * scale)), interpolation = interp)
 		r = append_horizontal([r, x])
 
