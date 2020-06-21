@@ -16,7 +16,7 @@ In the subjective testing throughout development, it was found to work well on i
 
 However, the subjective analysis of an image doesn't supply us with a source of truth. This document reflects an attempt to create an objective measure to compare the algorithm against existing industry standard algorithms, and to provide a source of truth that could be used for further improvements to the algorithm.
 
-Measuring the quality of an image is a difficult problem, and so we rely on a measure that may not be entirely appropriate all of the time, necessitating a large dataset to hide any outliers.
+Measuring the quality of an image is a difficult problem, and so we rely on a measure that may not be entirely appropriate all of the time, necessitating a larger dataset to draw any conclusions.
 
 The industry-standard for measuring quality, Structural Similiarity (SSIM) indexing was examined as a possible measure early in the process, and discarded after it failed to tell the difference between several pairs of vastly different images.
 
@@ -263,6 +263,30 @@ The quantized layer is then blended onto the stack at 70%.
 The X & Y Sobel gradient layer from earlier is then re-blended onto the stack at 30%.
 
 Finally we do some contrast correction, and then apply the denoising algorithm [^denoise] to the result.
+
+---
+
+# Extra Comparisons
+
+As this is an image upscaling algorithm, it can be useful to do subjective analysis, despite the purpose of the above work to be to find some sort of objective source of truth.
+
+So whilst the following image comparisons have little bearing on our analysis, they are nonetheless, interesting.
+
+The process to create these images was as follows:
+
+* Shrink the given image to 10% of the original scale, using Lanczos v4. (To make quality loss dramatic)
+
+* For integer scales in the range of 2 to 4, upscale the image using the given algorithm
+
+* Concatenate the images together.
+
+The exact code can be found in `crush_compare.py`, and the exact command run was:
+
+    python crush_compare.py -i input.jpg -o crush
+
+Which resulted in:
+
+![Visual comparison of upscaling algorithms](crush.png)
 
 ---
 
