@@ -274,9 +274,11 @@ So whilst the following image comparisons have little bearing on our analysis, t
 
 The process to create these images was as follows:
 
-* Shrink the given image to 10% of the original scale, using Lanczos v4. (To make quality loss dramatic)
+* Shrink the given image to 10% of the original scale (to make quality loss dramatic), using Lanczos v4.
 
-* For integer scales in the range of 2 to 4, upscale the image using the given algorithm
+    * Note that when upscaling from very small resolutions, you will find differing qualities amongst the algorithms than you find above. This is expected, and understood. However `cart_repair` should still be able to be visually compared.
+
+* For integer scales in the range of 2 to 4, upscale the image using the given algorithm. (As above, the algorithms are Bicubic, Nearest Neighbour, Bilinear, Area, Lanczos v4 and `cart_repair`).
 
 * Concatenate the images together.
 
