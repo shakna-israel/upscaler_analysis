@@ -244,19 +244,39 @@ Next, a X & Y Sobel gradient is generated from the smoothed but unblended layer,
 
 A K-means clustering algorithm is used to create a quantized layer. K-selection for the algorithm is slightly complicated, but is roughly:
 
-    c10 = colour_count / 1000
-    if c10 > 0:
-        if c10 > 48:
-            colour_count = c10
+    def select_k(image, scale):
+        # Get base colour count, usually some thousands, even for B&W
+        colour_count = np.unique(image.reshape(-1, image.shape[-1]), axis=0).size
+
+        # Get a reasonable base value
+        c10 = colour_count / 1000
+
+        # Find some reasonable minimums
+        if c10 > 0:
+            if c10 > 48:
+                colour_count = math.floor(colour_count / 1000)
+            else:
+                colour_count = 48
         else:
             colour_count = 48
-    else:
-        colour_count = 48
 
-    if colour_count < 100:
-        colour_count = colour_count * 2
+        # If minimum threshold not met, use scale to find a reasonable threshold
+        if colour_count < 150:
+            if scale < 2:
+                colour_count = colour_count * 2
+            else:
+                colour_count = colour_count * scale
 
-This results in a minimum of 96 for K, without an upper bound but with a generally reasonable range of less than a thousand.
+        # If maximum threshold exceeded, reset
+        if colour_count > c10 * 10:
+            colour_count = c10 * 10
+
+        # K must be integer, not float.
+        colour_count = int(colour_count)
+
+        return colour_count
+
+This results in a minimum of 96 for K, with a reasonable upper bound, and connects K with the scale in a reasonable fashion.
 
 The quantized layer is then blended onto the stack at 70%.
 
