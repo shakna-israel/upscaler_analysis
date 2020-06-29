@@ -247,22 +247,27 @@ A K-means clustering algorithm is used to create a quantized layer. K-selection 
     def select_k(image, scale):
         # Get base colour count, usually some thousands, even for B&W
         colour_count = np.unique(image.reshape(-1, image.shape[-1]), axis=0).size
+        print("Original color count: {}".format(colour_count))
 
         # Get a reasonable base value
-        c10 = colour_count / 1000
+        c10 = math.floor(colour_count / 1000)
 
         # Find some reasonable minimums
         if c10 > 0:
             if c10 > 48:
-                colour_count = math.floor(colour_count / 1000)
+                colour_count = c10
             else:
                 colour_count = 48
         else:
             colour_count = 48
 
+        # Set a minimum upper bound
+        if c10 < 150:
+            c10 = 150
+
         # If minimum threshold not met, use scale to find a reasonable threshold
         if colour_count < 150:
-            if scale < 2:
+            if scale <= 2:
                 colour_count = colour_count * 2
             else:
                 colour_count = colour_count * scale
