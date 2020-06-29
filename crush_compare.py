@@ -32,7 +32,7 @@ def append_horizontal(images):
 
 	return final_image
 
-def create_row_cart(image):
+def create_row_cart(image, scale_count=10):
 	height = image.shape[0]
 	width = image.shape[1]
 	base = cv2.resize(image, (math.floor(width / 10), math.floor(height / 10)), interpolation = cv2.INTER_LANCZOS4)
@@ -42,7 +42,7 @@ def create_row_cart(image):
 	height = base.shape[0]
 	width = base.shape[1]
 
-	for scale in range(2, 6):
+	for scale in range(2, scale_count):
 		x = cart_repair.process_frame(base.copy(), scale)
 		r = append_horizontal([r, x])
 
@@ -53,7 +53,7 @@ def create_row_cart(image):
 
 	return r
 
-def create_row(image, interp=cv2.INTER_CUBIC, text="Cubic"):
+def create_row(image, interp=cv2.INTER_CUBIC, text="Cubic", scale_count=10):
 	height = image.shape[0]
 	width = image.shape[1]
 	base = cv2.resize(image, (math.floor(width / 10), math.floor(height / 10)), interpolation = cv2.INTER_LANCZOS4)
@@ -63,7 +63,7 @@ def create_row(image, interp=cv2.INTER_CUBIC, text="Cubic"):
 	height = base.shape[0]
 	width = base.shape[1]
 
-	for scale in range(2, 6):
+	for scale in range(2, scale_count):
 		x = cv2.resize(base.copy(), (math.floor(width * scale), math.floor(height * scale)), interpolation = interp)
 		r = append_horizontal([r, x])
 
